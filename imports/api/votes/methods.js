@@ -30,6 +30,16 @@ Meteor.methods({
         Votes.insert(userData);
 
         //return success
-        return true;
+        return userSlug;
+    },
+    getVoteFromSlug(slug) {
+        let tmpVote = Votes.findOne({ slug });
+        if (tmpVote) {
+            delete tmpVote.IP;
+            delete tmpVote.email;
+            return tmpVote;
+        }
+
+        return;
     }
 })

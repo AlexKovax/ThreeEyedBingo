@@ -82,7 +82,7 @@ class Home extends React.Component {
                 console.log(res)
 
                 //Set session
-                this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true })
+                this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: res })
                 //TODO : update user slug so he can get his link
             }
 
@@ -100,10 +100,8 @@ class Home extends React.Component {
         }
 
         return (
-            <Container style={{ paddingBottom: '50px' }}>
 
-                <h1>Who dies when in Game of Thrones season 8 ?</h1>
-
+            <div>
                 <Segment>
                     <p>
                         Welcome to WDM (who dies when) where you can try to forecast who will die in the season 8 of Game of Thrones and when !
@@ -201,8 +199,7 @@ class Home extends React.Component {
                 }
 
                 <a href='https://hosakka-stud.io' style={{ display: 'block', marginTop: '20px' }} target='_blank'>Made with passion by Hosakkā Studio</a>
-
-            </Container>
+            </div>
         )
     }
 
