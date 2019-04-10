@@ -110,7 +110,7 @@ class Home extends React.Component {
                 </Segment>
 
                 <Segment>
-                    Menu : <a href='/leaderboard'>check the leaderboard</a> | <a href='/stats'>see the statistics</a> | <a href='/about'>About this</a>
+                    Menu : <a href='/leaderboard'>check the leaderboard</a> | <a href='/stats'>see the statistics</a> | <a href='/about'>about this</a>
                 </Segment>
 
                 {(!this.state.userHasAlreadyVoted) ?
@@ -181,7 +181,7 @@ class Home extends React.Component {
                             </Message>
                         </Segment>
 
-                        <Button size='massive' onClick={this.handleSubmission.bind(this)} >Submit my vote !</Button>
+                        <Button fluid size='massive' onClick={this.handleSubmission.bind(this)} >Submit my vote !</Button>
 
                     </Segment>
                     :
@@ -192,7 +192,7 @@ class Home extends React.Component {
                             <strong>But don't forget to check regularly check out the <a href='/leaderboard'>leaderboard</a> to see where you stand in the battle</strong>
                         </p>
                         <p>
-                            Here's the link to your forecast : {Meteor.absoluteUrl() + '/vote/' + this.state.userSlug}
+                            Here's the link to your forecast : <a href={Meteor.absoluteUrl() + 'vote/' + this.state.userSlug}>{Meteor.absoluteUrl() + 'vote/' + this.state.userSlug}</a>
                         </p>
                         <p>Share it with the world : twitter|facebook</p>
                     </Segment>

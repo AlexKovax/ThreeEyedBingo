@@ -18,7 +18,6 @@ class Vote extends React.Component {
             if (err) {
                 console.log(err);
             } else {
-                console.log(res);
                 this.setState({ voteInfo: res })
 
                 //get characters
@@ -41,9 +40,13 @@ class Vote extends React.Component {
             return (<Message error>Error...</Message>)
         }
 
+        if (typeof this.state.voteInfo.createdAt === 'undefined') {
+            return (<em>Loading...</em>)
+        }
+
         return (
             <Segment loading={this.state.loading}>
-                <Header as='h2'>Here's what {this.state.voteInfo.nickname} has predicted !</Header>
+                <Header as='h2'>On {this.state.voteInfo.createdAt.toString()}, here's what <em>{this.state.voteInfo.nickname}</em> has predicted !</Header>
 
                 <Card.Group itemsPerRow={8}>
                     {this.state.tabCharacters.map((item) => {
