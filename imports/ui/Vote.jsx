@@ -48,7 +48,7 @@ class Vote extends React.Component {
             <Segment loading={this.state.loading}>
                 <Header as='h2'>On {this.state.voteInfo.createdAt.toString()}, here's what <em>{this.state.voteInfo.nickname}</em> has predicted !</Header>
 
-                <Card.Group itemsPerRow={8}>
+                <Card.Group>
                     {this.state.tabCharacters.map((item) => {
                         if (typeof this.state.voteInfo.tabVotes[item.id] === 'undefined') return '';
 
