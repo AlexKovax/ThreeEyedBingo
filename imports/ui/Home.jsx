@@ -119,7 +119,7 @@ class Home extends React.Component {
 
                         <p>For every character please choose if and when they die in season 8</p>
 
-                        <Card.Group itemsPerRow={4}>
+                        <Card.Group centered>
                             {this.state.tabCharacters.map((item) => {
                                 return (
                                     <Card key={item.id}>
@@ -134,6 +134,7 @@ class Home extends React.Component {
                                                 <Icon name='bullseye' />
                                                 Your forecast ?
                                             </a>
+                                            {/*TODO : on mobile use native select*/}
                                             {(!item.isDead) ?
                                                 <Select placeholder='Choose from below' name={item.id} options={deathOptions} fluid onChange={this.handleChange} />
                                                 : <p>Too late...</p>
