@@ -66,7 +66,7 @@ Meteor.methods({
 
         });
 
-        //Todo : mettre en cache la réponse
+        //Todo : mettre en cache la réponse pour 5min (augmenter si besoin)
 
         return tabAllVotes;
     }
