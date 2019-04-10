@@ -9,5 +9,10 @@ import '/imports/api/votes/_votes.js';
 //Fixtures
 import '/imports/api/characters/fixtures.js';
 
+//Migrations
+import '/imports/api/characters/fixtures.js';
+
 //Methods
 import '/imports/api/votes/methods.js';
+import '/imports/api/characters/methods.js';
+

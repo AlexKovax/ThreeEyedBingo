@@ -19,7 +19,7 @@ if (Characters.find().count() === 0) {
         { id: 'brienne', name: 'Brienne of Tarth', info: '' },
         { id: 'theon', name: 'Theon Greyjoy', info: '' },
         { id: 'sam', name: 'Samwell Tarly', info: '' },
-        { id: 'savos', name: 'Davos Seaworth', info: '' },
+        { id: 'davos', name: 'Davos Seaworth', info: '' },
         { id: 'mountain', name: 'The Mountain', info: '' },
         { id: 'varys', name: 'Varys', info: '' },
         { id: 'jorah', name: 'Jorah Mormont', info: '' },
@@ -51,7 +51,7 @@ if (Characters.find().count() === 0) {
         element.isDead = false;
         element.deadAtEpisode = 0;
         element.dateOfDeath = null;
-        element.image = element.id + '.jepg';
+        element.image = element.id + '.jpeg';
         Characters.insert(element);
     });
 
