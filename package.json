@@ -17,6 +17,7 @@
     "eslint-plugin-react": "^7.12.4",
     "meteor-node-stubs": "^0.4.1",
     "react": "^16.5.0",
+    "react-burger-menu": "^2.6.8",
     "react-dom": "^16.5.0",
     "react-mounter": "^1.2.0",
     "semantic-ui-react": "^0.86.0"

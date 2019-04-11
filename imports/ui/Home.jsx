@@ -1,6 +1,9 @@
 import React from 'react';
 import { Container, Segment, Card, Image, Icon, Select, Button, Input, Grid, Message, Header } from 'semantic-ui-react';
 import { Session } from 'meteor/session'
+import HeaderHome from '/imports/ui/HeaderHome.jsx'
+import BurgerMenu from '/imports/ui/BurgerMenu.jsx'
+
 
 class Home extends React.Component {
 
@@ -28,13 +31,14 @@ class Home extends React.Component {
         if (Session.get('wdmSlug') && Session.get('wdmToken')) {
             this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: Session.get('wdmSlug') })
         } else {
-            //récupération des personnages
+            //récupération des personnages si jamais pas de session
             Meteor.call('getAllCharacters', (err, res) => {
                 if (res) {
                     this.setState({ tabCharacters: res, loading: false })
                 } else {
-                    console.log('Error');
-                    //TODO : graceful handling
+                    console.log(err);
+                    this.setState({ mainSegmentHidden: true, loading: false });
+                    alert('Error on load');
                 }
             })
 
@@ -61,7 +65,6 @@ class Home extends React.Component {
             return this.setState({ showMainError: true, mainError: 'Please make a forecast for one or more character...' })
         }
 
-
         //user data
         let userData = {
             nickname: this.state.userNickname,
@@ -69,12 +72,10 @@ class Home extends React.Component {
             tabVotes: this.state.tabUserVotes
         }
 
+        //Send vote to backend
         this.setState({ loading: true })
-
-        //TODO : loading
         Meteor.call('castVote', userData, (err, res) => {
             if (err) {
-
                 console.log(err);
                 //Handle error
                 let errorText = 'There was an error while sending your vote...';
@@ -96,113 +97,112 @@ class Home extends React.Component {
 
     render() {
 
-        let deathOptions = [
-            { key: 'neverdies', text: 'Never dies', value: 0 }
-        ];
+        let deathOptions = [];
 
         for (let i = 1; i < 7; i++) {
             deathOptions.push({ key: 'dies' + i, text: 'Dies at episode ' + i, value: i });
         }
+        deathOptions.push({ key: 'neverdies', text: 'Never dies', value: 0 })
 
+        //display UI
         return (
 
             <div>
-                <Segment>
-                    <p>
-                        Welcome to WDM (who dies when) where you can try to forecast who will die in the season 8 of Game of Thrones and when !
-                    </p>
-                    <p>Rules are simple: you get 1000 points when you predicted a death, 3000 for a correct survival forecast and a bonus of 4000 if you predicted the correct episode of the death</p>
-                </Segment>
+                <BurgerMenu />
 
-                <Segment>
-                    Menu : <a href='/leaderboard'>check the leaderboard</a> | <a href='/stats'>see the statistics</a> | <a href='/about'>about this</a>
-                </Segment>
+                <HeaderHome />
 
-                {(!this.state.userHasAlreadyVoted) ?
-                    <Segment loading={this.state.loading}>
-                        <h2>Cast your vote!</h2>
-
-                        <p>For every character please choose if and when they die in season 8</p>
-
-                        <Card.Group centered>
-                            {this.state.tabCharacters.map((item) => {
-                                return (
-                                    <Card key={item.id}>
-                                        <Image src={'https://static.whodieswhen.com/' + item.id + '.jpeg'} />
-                                        <Card.Content>
-                                            <Card.Header>{item.name}</Card.Header>
-                                            <Card.Meta>{(!item.isDead) ? 'Still alive !' : 'Dead...'}</Card.Meta>
-                                            <Card.Description>{item.info}</Card.Description>
-                                        </Card.Content>
-                                        <Card.Content extra>
-                                            <a>
-                                                <Icon name='bullseye' />
-                                                Your forecast ?
-                                            </a>
-                                            {/*TODO : on mobile use native select*/}
-                                            {(!item.isDead) ?
-                                                <Select placeholder='Choose from below' name={item.id} options={deathOptions} fluid onChange={this.handleChange} />
-                                                : <p>Too late...</p>
-                                            }
-
-                                        </Card.Content>
-                                    </Card>
-                                )
-                            })
-                            }
-                        </Card.Group>
-
-                        <Segment>
-                            <Header as='h2'>Ready to make your forecast?</Header>
-
-                            <Message hidden={this.state.tabCharacters.length === Object.keys(this.state.tabUserVotes).length} >
-                                <Message.Header>Warning</Message.Header>
-                                <p>
-                                    You have made a predictions for {Object.keys(this.state.tabUserVotes).length} of the {this.state.tabCharacters.length} characters.
-                                </p>
-                                <p><em>It's not mandatory but you should forecast for them all! It's your only chance...</em></p>
-                            </Message>
-
-                            <Grid columns={2} divided>
-                                <Grid.Column key='1'>
-                                    <p>
-                                        Please input your nickname for the leaderboard (and fame)
-                                    </p>
-                                    <Input placeholder='Nickame...' fluid onChange={this.handleInput} name='userNickname' />
-                                </Grid.Column>
-                                <Grid.Column key='2'>
-                                    <p>
-                                        Not mandatory but you can also add your email address to get news from this
-                                    </p>
-                                    <Input placeholder='Email...' type='email' fluid onChange={this.handleInput} name='userEmail' />
-                                    {/*Todo : si email alors mettre une case à cocher*/}
-                                </Grid.Column>
-                            </Grid>
-
-                            <Message hidden={!this.state.showMainError} error>
-                                <Message.Header>Error</Message.Header>
-                                <p>
-                                    {this.state.mainError}
-                                </p>
-                            </Message>
-                        </Segment>
-
-                        <Button fluid size='massive' onClick={this.handleSubmission.bind(this)} >Submit my vote !</Button>
-
-                    </Segment>
-                    :
+                <Container>
                     <Segment>
-                        <Header as='h2'>Congratulations, you have already voted!</Header>
-                        <p>
-                            Now you just have to sit tight and watch the rest of the season 8.
-                            <strong>But don't forget to check regularly check out the <a href='/leaderboard'>leaderboard</a> to see where you stand in the battle</strong>
-                        </p>
-                        <p>
-                            Here's the link to your forecast : <a href={Meteor.absoluteUrl() + 'vote/' + this.state.userSlug}>{Meteor.absoluteUrl() + 'vote/' + this.state.userSlug}</a>
-                        </p>
-                        <p>Share it with the world : twitter|facebook</p>
+                        Menu : <a href='/leaderboard'>check the leaderboard</a> | <a href='/stats'>see the statistics</a> | <a href='/about'>about this</a>
                     </Segment>
-                }
+
+                    {(!this.state.userHasAlreadyVoted) ?
+                        <Segment loading={this.state.loading} hidden={this.state.mainSegmentHidden}>
+                            <h2>Cast your vote!</h2>
+
+                            <p>For every character please choose if and when they die in season 8</p>
+
+                            <Card.Group centered>
+                                {this.state.tabCharacters.map((item) => {
+                                    return (
+                                        <Card key={item.id}>
+                                            <Image src={'https://static.whodieswhen.com/' + item.id + '.jpeg'} />
+                                            <Card.Content>
+                                                <Card.Header>{item.name}</Card.Header>
+                                                <Card.Meta>{(!item.isDead) ? 'Still alive !' : 'Dead...'}</Card.Meta>
+                                                <Card.Description>{item.info}</Card.Description>
+                                            </Card.Content>
+                                            <Card.Content extra>
+                                                <a>
+                                                    <Icon name='bullseye' />
+                                                    Your forecast ?
+                                                </a>
+                                                {/*TODO : on mobile use native select*/}
+                                                {(!item.isDead) ?
+                                                    <Select placeholder='Choose from below' name={item.id} options={deathOptions} fluid onChange={this.handleChange} />
+                                                    : <p>Too late...</p>
+                                                }
+
+                                            </Card.Content>
+                                        </Card>
+                                    )
+                                })
+                                }
+                            </Card.Group>
+
+                            <Segment hidden={this.state.mainSegmentHidden}>
+                                <Header as='h2'>Ready to make your forecast?</Header>
+
+                                <Message hidden={this.state.tabCharacters.length === Object.keys(this.state.tabUserVotes).length} >
+                                    <Message.Header>Warning</Message.Header>
+                                    <p>
+                                        You have made a predictions for {Object.keys(this.state.tabUserVotes).length} of the {this.state.tabCharacters.length} characters.
+                                    </p>
+                                    <p><em>It's not mandatory but you should forecast for them all! It's your only chance...</em></p>
+                                </Message>
+
+                                <Grid columns={2} divided>
+                                    <Grid.Column key='1'>
+                                        <p>
+                                            Please input your nickname for the leaderboard (and fame)
+                                        </p>
+                                        <Input placeholder='Nickame...' fluid onChange={this.handleInput} name='userNickname' />
+                                    </Grid.Column>
+                                    <Grid.Column key='2'>
+                                        <p>
+                                            Not mandatory but you can also add your email address to get news from this
+                                        </p>
+                                        <Input placeholder='Email...' type='email' fluid onChange={this.handleInput} name='userEmail' />
+                                        {/*Todo : si email alors mettre une case à cocher*/}
+                                    </Grid.Column>
+                                </Grid>
+
+                                <Message hidden={!this.state.showMainError} error>
+                                    <Message.Header>Error</Message.Header>
+                                    <p>
+                                        {this.state.mainError}
+                                    </p>
+                                </Message>
+                            </Segment>
+
+                            <Button fluid size='massive' onClick={this.handleSubmission.bind(this)} >Submit my vote !</Button>
+
+                        </Segment>
+                        :
+                        <Segment>
+                            <Header as='h2'>Congratulations, you have already voted!</Header>
+                            <p>
+                                Now you just have to sit tight and watch the rest of the season 8.
+                                <strong>But don't forget to check regularly check out the <a href='/leaderboard'>leaderboard</a> to see where you stand in the battle</strong>
+                            </p>
+                            <p>
+                                Here's the link to your forecast : <a href={Meteor.absoluteUrl() + 'vote/' + this.state.userSlug}>{Meteor.absoluteUrl() + 'vote/' + this.state.userSlug}</a>
+                            </p>
+                            <p>Share it with the world : twitter|facebook</p>
+                        </Segment>
+                    }
+                </Container>
 
                 <a href='https://hosakka-stud.io' style={{ display: 'block', marginTop: '20px' }} target='_blank'>Made with passion by Hosakkā Studio</a>
             </div>

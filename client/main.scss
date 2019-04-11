@@ -1,0 +1,157 @@
+/* Variables */
+$host: 'https://static.whodieswhen.com/';
+$jaune: #F8EA1B;
+
+/* Styles */
+.headerHome {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    /*background: #000 url('https://static.whodieswhen.com/bg.jpg') no-repeat center top cover;*/
+    background: #000000 url($host + '/bg-2000.jpg') no-repeat center right;
+    background-size: cover;
+
+    a.logoHeader {
+        display: block;
+        position: absolute;
+        width: 65px;
+        height: 102px;
+        left: 53px;
+        top: 12px;
+
+        background: url($host + 'logo.png') no-repeat center center;
+        background-size: 65px 102px;
+    }
+
+    .introHome {
+        position: absolute;
+        width: 40%;
+        left: 50%;
+        top: 20%;
+
+        font-family: Open Sans;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 48px;
+        line-height: 50px;
+
+        color: #F8EA1B;
+
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .arrowHome {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        left: 50%;
+        margin-left: -50px;
+        bottom: 50px;
+
+        background: url($host + '/arrow.png');
+
+        a {
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 30px;
+            line-height: 31px;
+
+            color: #FFFFFF;
+        }
+    }
+}
+
+.rulesHome {
+    position: relative;
+    width: 100vw;
+    height: 600px;
+
+    background: #1A1B10;
+
+    text-align: center;
+    span {
+        display: block;
+    }
+
+    ul {
+        width: 100%;
+
+        li {
+            width: 33%;
+            display: inline-block;
+
+        }
+    }
+}
+
+
+/* burger */
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+    position: fixed;
+    width: 36px;
+    height: 30px;
+    right: 36px;
+    top: 36px;
+  }
+  
+  /* Color/shape of burger icon bars */
+  .bm-burger-bars {
+    background: #fff;
+  }
+  
+  /* Color/shape of burger icon bars on hover*/
+  .bm-burger-bars-hover {
+    background: $jaune;
+    opacity: 1 !important;
+  }
+  
+  /* Position and sizing of clickable cross button */
+  .bm-cross-button {
+    height: 24px;
+    width: 24px;
+  }
+  
+  /* Color/shape of close button cross */
+  .bm-cross {
+    background: #fff;
+  }
+  
+  /*
+  Sidebar wrapper styles
+  Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+  */
+  .bm-menu-wrap {
+    position: fixed;
+    height: 100%;
+  }
+  
+  /* General sidebar styles */
+  .bm-menu {
+    background: #000;
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+  }
+  
+  /* Morph shape necessary with bubble or elastic */
+  .bm-morph-shape {
+    fill: #373a47;
+  }
+  
+  /* Wrapper for item list */
+  .bm-item-list {
+    color: $jaune;
+    padding: 0.8em;
+  }
+  
+  /* Individual item */
+  .bm-item {
+    display: inline-block;
+  }
+  
+  /* Styling of overlay */
+  .bm-overlay {
+    background: rgba(0, 0, 0, 0.4);
+  }

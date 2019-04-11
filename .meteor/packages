@@ -22,3 +22,4 @@ react-meteor-data       # React higher-order component for reactively tracking M
 kadira:flow-router
 session
 cultofcoders:persistent-session
+fourseven:scss
