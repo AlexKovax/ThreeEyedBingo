@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Segment, Card, Image, Icon, Select, Button, Input, Grid, Message, Header } from 'semantic-ui-react';
+import { Session } from 'meteor/session'
 
 class Home extends React.Component {
 
@@ -24,15 +25,21 @@ class Home extends React.Component {
     componentDidMount() {
         //Checker la session
         //Si déjà une session : on cache le segment et on affiche autre chose
+        if (Session.get('wdmSlug') && Session.get('wdmToken')) {
+            this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: Session.get('wdmSlug') })
+        } else {
+            //récupération des personnages
+            Meteor.call('getAllCharacters', (err, res) => {
+                if (res) {
+                    this.setState({ tabCharacters: res, loading: false })
+                } else {
+                    console.log('Error');
+                    //TODO : graceful handling
+                }
+            })
 
-        Meteor.call('getAllCharacters', (err, res) => {
-            if (res) {
-                this.setState({ tabCharacters: res, loading: false })
-            } else {
-                console.log('Error');
-                //TODO : graceful handling
-            }
-        })
+        }
+
     }
 
     //Handle select changes
@@ -78,12 +85,10 @@ class Home extends React.Component {
                 }
                 this.setState({ loading: false, showMainError: true, mainError: errorText })
             } else {
-                //TODO : enlever loading, afficher succès, supprimer les characters
-                console.log(res)
-
+                //update UI and state
+                this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: res.slug })
                 //Set session
-                this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: res })
-                //TODO : update user slug so he can get his link
+                Session.setPersistent({ 'wdmSlug': res.slug, 'wdmToken': res.token });
             }
 
         })

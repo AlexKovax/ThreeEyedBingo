@@ -29,8 +29,16 @@ Meteor.methods({
         console.log(userData);
         Votes.insert(userData);
 
+        //Todo generate token
+
+        //Todo : create user account (à voir)
+
+        let ret = {};
+        ret.slug = userSlug;
+        ret.token = 'xxx'
+
         //return success
-        return userSlug;
+        return ret;
     },
     getVoteFromSlug(slug) {
         let tmpVote = Votes.findOne({ slug });
