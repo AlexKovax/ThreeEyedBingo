@@ -20,7 +20,7 @@ class HeaderHome extends React.Component {
                         Ready to be a warg?
                     </div>
                     <div className='arrowHome' onClick={this.scrollto.bind(this, '#rules')}>
-                        <span>Rules !</span>
+                        <span>Rules</span>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@ class HeaderHome extends React.Component {
                         </li>
                     </ul>
                     <div className='arrowHome' onClick={this.scrollto.bind(this, '#predict')}>
-                        <span>Predict !</span>
+                        <span>Predict</span>
                     </div>
                 </div>
             </div>

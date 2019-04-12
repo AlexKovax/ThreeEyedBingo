@@ -278,3 +278,45 @@ ul.shareBar {
 .bm-overlay {
   background: rgba(0, 0, 0, 0.4);
 }
+
+/*****************************/
+
+/* Media queries */
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .headerHome .introHome {
+    position: relative;
+    width: 90vw;
+    left: 0;
+    top: 20%;
+    font-size: 34px;
+    line-height: 60px;
+    color: #f8ea1b;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .rulesHome {
+    position: relative;
+    width: 100vw;
+    height: auto;
+    text-align: center;
+    min-height: 100vh;
+  }
+  .rulesHome ul li {
+    width: 90%;
+    display: block;
+    font-style: normal;
+    font-size: 48px;
+    line-height: 52px;
+    border-bottom: solid 1px white;
+    margin-bottom: 20px;
+  }
+  .rulesHome ul li:last-child {
+    padding-bottom: 100px;
+  }
+
+  .voteHome .descVoteHome {
+    width: 90%;
+  }
+}

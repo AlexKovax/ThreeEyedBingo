@@ -111,6 +111,13 @@ class Home extends React.Component {
             titleUrl = 'Three Eyed Bing - discover ' + this.state.userNickname + '\'s prediction for Game of Thrones season 8'
         }
 
+        //adjust UI
+        console.log(window.innerWidth)
+        let mobileMode = false;
+        if (window.innerWidth < 641) {
+            mobileMode = true;
+        }
+
         //display UI
         return (
 
@@ -166,7 +173,7 @@ class Home extends React.Component {
                                     <p><em>It's not mandatory but you should forecast for them all! It's your only chance...</em></p>
                                 </Message>
 
-                                <Grid columns={2} divided className='detailsVoteHome'>
+                                <Grid columns={(mobileMode) ? 1 : 2} divided={!mobileMode} className='detailsVoteHome'>
                                     <Grid.Column key='1'>
                                         <label>Nickname</label>
                                         <Input placeholder='Nickame...' fluid onChange={this.handleInput} name='userNickname' />

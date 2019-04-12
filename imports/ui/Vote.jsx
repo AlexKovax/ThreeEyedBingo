@@ -1,5 +1,7 @@
 import React from 'react';
-import { Container, Button, Icon, Dropdown, Form, List, Label, Divider, Image, Header, Segment, Message, Card } from 'semantic-ui-react';
+import { Image, Header, Segment, Message, Card } from 'semantic-ui-react';
+import Share from '/imports/ui/Share.jsx'
+
 
 class Vote extends React.Component {
 
@@ -44,6 +46,13 @@ class Vote extends React.Component {
             return (<em>Loading...</em>)
         }
 
+        let shareUrl = '';
+        let titleUrl = '';
+        if (this.state.voteInfo) {
+            shareUrl = Meteor.absoluteUrl() + 'vote/' + this.state.voteInfo.slug;
+            titleUrl = 'Three Eyed Bing - discover ' + this.state.voteInfo.nickname + '\'s prediction for Game of Thrones season 8'
+        }
+
         return (
             <Segment loading={this.state.loading}>
                 <Header as='h2'>On {this.state.voteInfo.createdAt.toString()}, here's what <em>{this.state.voteInfo.nickname}</em> has predicted !</Header>
@@ -68,8 +77,10 @@ class Vote extends React.Component {
                 </Card.Group>
 
                 <p>
-                    Share this forecast on : twitter | facebook
+                    Share this forecast on :
                 </p>
+
+                <Share shareUrl={shareUrl} titleUrl={titleUrl} />
             </Segment>
         )
     }
