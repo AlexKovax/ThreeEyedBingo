@@ -2,6 +2,9 @@
     "name": "whodieswhen",
     "env": {
         "ROOT_URL": "https://three-eyed-bingo.com",
+        "KADIRA_APP_ID": "YvuCKm2XvfkiThegy",
+        "KADIRA_APP_SECRET": "4b21a4f4-5fc5-4403-88dc-eb4ce8aba180",
+        "KADIRA_OPTIONS_ENDPOINT": "https://meteor-apm-engine.nodechef.com",
         "METEOR_SETTINGS": {}
     },
     "meteorbuild": {

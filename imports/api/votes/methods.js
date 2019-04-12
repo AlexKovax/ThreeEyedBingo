@@ -4,7 +4,6 @@ import { Random } from 'meteor/random'
 
 Meteor.methods({
     castVote(userData) {
-        console.log(userData);
         //Anti flood protection
         //search for IP in DB, max 30s between same IP
 
@@ -29,11 +28,11 @@ Meteor.methods({
         userData.lastModifierAt = new Date();
         userData.IP = this.connection.clientAddress;
         userData.token = userSlug.slice(0, userSlug.length - 2) + Random.hexString(4);
-        console.log(userData);
         Votes.insert(userData);
 
-        //Todo : create user account (à voir)
+        console.log(userData.slug + 'has voted !');
 
+        //Todo : create user account (à voir)
         let ret = {};
         ret.slug = userSlug;
         ret.token = userData.token;
