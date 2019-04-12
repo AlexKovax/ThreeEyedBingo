@@ -26,6 +26,7 @@ Meteor.methods({
         //inject
         userData.slug = userSlug;
         userData.createdAt = new Date();
+        userData.lastModifierAt = new Date();
         userData.IP = this.connection.clientAddress;
         userData.token = userSlug.slice(0, userSlug.length - 2) + Random.hexString(4);
         console.log(userData);
