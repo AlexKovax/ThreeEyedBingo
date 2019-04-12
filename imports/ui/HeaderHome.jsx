@@ -2,22 +2,32 @@ import React from 'react';
 
 class HeaderHome extends React.Component {
 
+    scrollto(anchor) {
+        //TODO : get rid of Jquery ;)
+        jQuery('html, body').animate({
+            'scrollTop': jQuery(anchor).offset().top
+        }, 1000);
+    }
+
     render() {
+        console.log(jQuery);
 
         return (
             <div>
                 <div className='headerHome'>
                     <a href='/' className='logoHeader'></a>
                     <div className='introHome'>
-                        Welcome to the Three Eyed Bingo where you can try to forecast who will die in the season 8 of Game of Thrones and when !
+                        Welcome to the Three Eyed Bingo where you can try to predict the many deaths of the season 8 of Game of Thrones.
+                        <br />
+                        Ready to be a warg?
                     </div>
-                    <div className='arrowHome'>
-                        <a href='#rules'>Rules !</a>
+                    <div className='arrowHome' onClick={this.scrollto.bind(this, '#rules')}>
+                        <span>Rules !</span>
                     </div>
                 </div>
 
                 <div className='rulesHome' id='rules'>
-                    <div>
+                    <div className='titleRulesHome'>
                         Rules are simple
                         <span>You get</span>
                     </div>
@@ -25,19 +35,22 @@ class HeaderHome extends React.Component {
                         <li>
                             <span>1000</span>
                             pts
-                            <p>When you predicted <strong>a death</strong></p>
+                            <p>for an accurate<strong> vision of death</strong></p>
                         </li>
                         <li>
-                            <span>1000</span>
+                            <span>3000</span>
                             pts
-                            <p>When you predicted <strong>a death</strong></p>
+                            <p>for a correct <strong>survival forecast</strong></p>
                         </li>
                         <li>
-                            <span>1000</span>
+                            <span>4000 bonus</span>
                             pts
-                            <p>When you predicted <strong>a death</strong></p>
+                            <p>if you guessed the exact<strong>episode of death</strong></p>
                         </li>
                     </ul>
+                    <div className='arrowHome' onClick={this.scrollto.bind(this, '#predict')}>
+                        <span>Predict !</span>
+                    </div>
                 </div>
             </div>
         )
