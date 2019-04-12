@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Segment, Card, Image, Icon, Select, Button, Input, Grid, Message, Header } from 'semantic-ui-react';
 import { Session } from 'meteor/session'
 import HeaderHome from '/imports/ui/HeaderHome.jsx'
-import BurgerMenu from '/imports/ui/BurgerMenu.jsx'
 import Share from '/imports/ui/Share.jsx'
 
 class Home extends React.Component {
@@ -127,7 +126,6 @@ class Home extends React.Component {
         return (
 
             <div>
-                <BurgerMenu />
 
                 <HeaderHome />
 

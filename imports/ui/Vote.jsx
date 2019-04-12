@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Header, Segment, Message, Card } from 'semantic-ui-react';
 import Share from '/imports/ui/Share.jsx'
-
+import HeaderPage from '/imports/ui/HeaderPage.jsx'
 
 class Vote extends React.Component {
 
@@ -54,34 +54,38 @@ class Vote extends React.Component {
         }
 
         return (
-            <Segment loading={this.state.loading}>
-                <Header as='h2'>On {this.state.voteInfo.createdAt.toString()}, here's what <em>{this.state.voteInfo.nickname}</em> has predicted !</Header>
+            <div>
+                <HeaderPage title={this.state.voteInfo.nickname + '\'s forecast'} />
 
-                <Card.Group>
-                    {this.state.tabCharacters.map((item) => {
-                        if (typeof this.state.voteInfo.tabVotes[item.id] === 'undefined') return '';
+                <Segment loading={this.state.loading}>
+                    <Header as='h2'>On {this.state.voteInfo.createdAt.toString().slice(0, 20)}, here's what <em>{this.state.voteInfo.nickname}</em> has predicted !</Header>
 
-                        let forecast = this.state.voteInfo.tabVotes[item.id];
+                    <Card.Group>
+                        {this.state.tabCharacters.map((item) => {
+                            if (typeof this.state.voteInfo.tabVotes[item.id] === 'undefined') return '';
 
-                        return (
-                            <Card key={item.id}>
-                                <Image src={'https://static.whodieswhen.com/' + item.id + '.jpeg'} />
-                                <Card.Content>
-                                    <Card.Header>{item.name}</Card.Header>
-                                    <Card.Meta>{(forecast === 0) ? 'will live !' : 'will die at episode ' + forecast}</Card.Meta>
-                                </Card.Content>
-                            </Card>
-                        )
-                    })
-                    }
-                </Card.Group>
+                            let forecast = this.state.voteInfo.tabVotes[item.id];
 
-                <p>
-                    Share this forecast on :
-                </p>
+                            return (
+                                <Card key={item.id}>
+                                    <Image src={'https://static.whodieswhen.com/' + item.id + '.jpeg'} />
+                                    <Card.Content>
+                                        <Card.Header>{item.name}</Card.Header>
+                                        <Card.Meta>{(forecast === 0) ? 'will live !' : 'will die at episode ' + forecast}</Card.Meta>
+                                    </Card.Content>
+                                </Card>
+                            )
+                        })
+                        }
+                    </Card.Group>
 
-                <Share shareUrl={shareUrl} titleUrl={titleUrl} />
-            </Segment>
+                    <p style={{ textAlign: 'center' }}>
+                        Share this forecast on :
+                    </p>
+
+                    <Share shareUrl={shareUrl} titleUrl={titleUrl} />
+                </Segment>
+            </div>
         )
     }
 

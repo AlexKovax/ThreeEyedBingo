@@ -1,4 +1,6 @@
 import React from 'react';
+import BurgerMenu from '/imports/ui/BurgerMenu.jsx'
+
 
 class HeaderHome extends React.Component {
 
@@ -12,6 +14,7 @@ class HeaderHome extends React.Component {
     render() {
         return (
             <div>
+                <BurgerMenu />
                 <div className='headerHome'>
                     <a href='/' className='logoHeader'></a>
                     <div className='introHome'>
