@@ -183,13 +183,12 @@ $jaune: #f8ea1b;
   }
 
   .alreadyVotedHome {
-    font-family: Open Sans;
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
     line-height: normal;
     text-align: center;
-
     color: #484747;
   }
 }
@@ -284,6 +283,12 @@ ul.shareBar {
 /* Media queries */
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .headerHome {
+    position: relative;
+    background: #000000 url(https://static.three-eyed-bingo.com/bg-1600.jpg) no-repeat center center;
+    background-size: cover;
+  }
+
   .headerHome .introHome {
     position: relative;
     width: 90vw;

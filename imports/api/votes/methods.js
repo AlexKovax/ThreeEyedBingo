@@ -1,5 +1,6 @@
 import { Votes } from '/imports/api/votes/_votes.js';
 import { Characters } from '/imports/api/characters/_characters.js';
+import { Random } from 'meteor/random'
 
 Meteor.methods({
     castVote(userData) {
@@ -26,16 +27,15 @@ Meteor.methods({
         userData.slug = userSlug;
         userData.createdAt = new Date();
         userData.IP = this.connection.clientAddress;
+        userData.token = userSlug.slice(0, userSlug.length - 2) + Random.hexString(4);
         console.log(userData);
         Votes.insert(userData);
-
-        //Todo generate token
 
         //Todo : create user account (à voir)
 
         let ret = {};
         ret.slug = userSlug;
-        ret.token = 'xxx';
+        ret.token = userData.token;
         ret.nickname = userData.nickname;
 
         //return success

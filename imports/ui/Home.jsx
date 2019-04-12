@@ -16,6 +16,7 @@ class Home extends React.Component {
             tabUserVotes: {},
             userNickname: '',
             userEmail: '',
+            userToken: '',
             userHasGivenConsent: false,
             mainSegmentHidden: false,
             userHasAlreadyVoted: false,
@@ -29,7 +30,12 @@ class Home extends React.Component {
         //Checker la session
         //Si déjà une session : on cache le segment et on affiche autre chose
         if (Session.get('wdmSlug') && Session.get('wdmToken')) {
-            this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: Session.get('wdmSlug'), userNickname: Session.get('wdmNickname') })
+            this.setState({
+                mainSegmentHidden: true, loading: false,
+                userHasAlreadyVoted: true, userSlug: Session.get('wdmSlug'),
+                userNickname: Session.get('wdmNickname'),
+                userToken: Session.get('wdmToken')
+            })
         } else {
             //récupération des personnages si jamais pas de session
             Meteor.call('getAllCharacters', (err, res) => {
@@ -87,7 +93,7 @@ class Home extends React.Component {
                 this.setState({ loading: false, showMainError: true, mainError: errorText })
             } else {
                 //update UI and state
-                this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: res.slug })
+                this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: res.slug, userToken: res.token })
                 //Set session
                 Session.setPersistent({ 'wdmSlug': res.slug, 'wdmToken': res.token, 'wdmNickname': res.nickname });
             }
@@ -112,7 +118,6 @@ class Home extends React.Component {
         }
 
         //adjust UI
-        console.log(window.innerWidth)
         let mobileMode = false;
         if (window.innerWidth < 641) {
             mobileMode = true;
@@ -204,6 +209,7 @@ class Home extends React.Component {
                         :
                         <Segment className='alreadyVotedHome'>
                             <h2>Congratulations, you are part of the wargs!</h2>
+                            <p>This is your secret token: <strong>{this.state.userToken}</strong>, don't lose it! It will allow you to update your visions later on.</p>
                             <p>
                                 Now you just have to sit tight and watch the rest of the season 8 to see how powerful were your visions.
                             </p>
@@ -211,7 +217,7 @@ class Home extends React.Component {
                                 <strong>But don't forget to check regularly check out the <a href='/leaderboard'>leaderboard</a> to see where you stand in the battle of the wargs</strong>. We will also update this regularly with new features and a better design.
                             </p>
                             <p>
-                                Here's the link to your forecast : <a href={shareUrl}>{shareUrl}</a>
+                                And also here's the link to your forecast : <a href={shareUrl}>{shareUrl}</a>
                             </p>
                             <p>Share it with the world :</p>
                             <Share shareUrl={shareUrl} titleUrl={titleUrl} />
