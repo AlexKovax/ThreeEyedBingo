@@ -32,7 +32,6 @@ class Leaderboard extends React.Component {
             <div>
                 <HeaderPage title='Leaderboard' />
                 <Segment loading={this.state.loading}>
-                    <Header as='h2'>Leaderboard</Header>
 
                     <p>How does this work?</p>
 

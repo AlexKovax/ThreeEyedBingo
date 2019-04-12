@@ -135,7 +135,7 @@ class Home extends React.Component {
                         <Segment loading={this.state.loading} hidden={this.state.mainSegmentHidden}>
                             <h2>Register your visions</h2>
 
-                            <p className='descVoteHome'>For every character, please focus and have a vision for their lives and deaths</p>
+                            <p className='descVoteHome'>For every character, please focus and have a vision for their lives and deaths at the end of S8</p>
 
                             <Card.Group centered>
                                 {this.state.tabCharacters.map((item) => {

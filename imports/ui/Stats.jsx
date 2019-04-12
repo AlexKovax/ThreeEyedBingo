@@ -33,11 +33,10 @@ class Stats extends React.Component {
 
         return (
             <div>
-                <HeaderPage title='Leaderboard' />
+                <HeaderPage title='Statistics' />
                 <Segment loading={this.state.loading}>
-                    <Header as='h2'>Statistics per character</Header>
 
-                    <Card.Group itemsPerRow={3}>
+                    <Card.Group >
                         {this.state.tabCharacters.map((item) => {
                             return (
                                 <Card key={item.id}>

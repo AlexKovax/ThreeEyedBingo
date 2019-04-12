@@ -360,3 +360,9 @@ ul.shareBar {
     width: 90%;
   }
 }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 380px) {
+  .headerHome .introHome {
+    font-size: 30px;
+  }
+}
