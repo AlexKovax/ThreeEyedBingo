@@ -88,6 +88,8 @@ class Home extends React.Component {
                     errorText = 'Some fields are missing...'
                 } else if (err.error === 'already-exists') {
                     errorText = 'This nickname is already taken. Please choose another one...'
+                } else {
+                    errorText = err.reason;
                 }
                 this.setState({ loading: false, showMainError: true, mainError: errorText })
             } else {

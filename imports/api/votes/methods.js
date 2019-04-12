@@ -6,6 +6,12 @@ Meteor.methods({
     castVote(userData) {
         //Anti flood protection
         //search for IP in DB, max 30s between same IP
+        let ipAdress = this.connection.clientAddress;
+        lastvoteIP = Votes.findOne({ IP: this.connection.clientAddress, createdAt: { $gte: new Date(Date.now() - 30000) } });
+        if (typeof lastvoteIP !== 'undefined') {
+            console.log(ipAdress + ' is flooding apparently');
+            throw new Meteor.Error('flood-protection', 'Last submission from same IP is too recent. Wait 30s please.');
+        }
 
         //check data
         if (userData.nickname === '') {
@@ -27,7 +33,7 @@ Meteor.methods({
         userData.score = 0;
         userData.createdAt = new Date();
         userData.lastModifierAt = new Date();
-        userData.IP = this.connection.clientAddress;
+        userData.IP = ipAdress;
         userData.token = userSlug.slice(0, userSlug.length - 2) + Random.hexString(4);
         Votes.insert(userData);
 
