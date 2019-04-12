@@ -1,0 +1,10 @@
+{
+    "name": "whodieswhen",
+    "env": {
+        "ROOT_URL": "https://three-eyed-bingo.com",
+        "METEOR_SETTINGS": {}
+    },
+    "meteorbuild": {
+        "server": "https://three-eyed-bingo.com"
+    }
+}
