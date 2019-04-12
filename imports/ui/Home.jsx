@@ -3,7 +3,7 @@ import { Container, Segment, Card, Image, Icon, Select, Button, Input, Grid, Mes
 import { Session } from 'meteor/session'
 import HeaderHome from '/imports/ui/HeaderHome.jsx'
 import BurgerMenu from '/imports/ui/BurgerMenu.jsx'
-
+import Share from '/imports/ui/Share.jsx'
 
 class Home extends React.Component {
 
@@ -16,6 +16,7 @@ class Home extends React.Component {
             tabUserVotes: {},
             userNickname: '',
             userEmail: '',
+            userToken: '',
             userHasGivenConsent: false,
             mainSegmentHidden: false,
             userHasAlreadyVoted: false,
@@ -29,7 +30,12 @@ class Home extends React.Component {
         //Checker la session
         //Si déjà une session : on cache le segment et on affiche autre chose
         if (Session.get('wdmSlug') && Session.get('wdmToken')) {
-            this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: Session.get('wdmSlug') })
+            this.setState({
+                mainSegmentHidden: true, loading: false,
+                userHasAlreadyVoted: true, userSlug: Session.get('wdmSlug'),
+                userNickname: Session.get('wdmNickname'),
+                userToken: Session.get('wdmToken')
+            })
         } else {
             //récupération des personnages si jamais pas de session
             Meteor.call('getAllCharacters', (err, res) => {
@@ -87,9 +93,9 @@ class Home extends React.Component {
                 this.setState({ loading: false, showMainError: true, mainError: errorText })
             } else {
                 //update UI and state
-                this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: res.slug })
+                this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: res.slug, userToken: res.token })
                 //Set session
-                Session.setPersistent({ 'wdmSlug': res.slug, 'wdmToken': res.token });
+                Session.setPersistent({ 'wdmSlug': res.slug, 'wdmToken': res.token, 'wdmNickname': res.nickname });
             }
 
         })
@@ -104,6 +110,19 @@ class Home extends React.Component {
         }
         deathOptions.push({ key: 'neverdies', text: 'Never dies', value: 0 })
 
+        let shareUrl = '';
+        let titleUrl = '';
+        if (this.state.userHasAlreadyVoted) {
+            shareUrl = Meteor.absoluteUrl() + 'vote/' + this.state.userSlug;
+            titleUrl = 'Three Eyed Bing - discover ' + this.state.userNickname + '\'s prediction for Game of Thrones season 8'
+        }
+
+        //adjust UI
+        let mobileMode = false;
+        if (window.innerWidth < 641) {
+            mobileMode = true;
+        }
+
         //display UI
         return (
 
@@ -112,16 +131,13 @@ class Home extends React.Component {
 
                 <HeaderHome />
 
-                <Container>
-                    <Segment>
-                        Menu : <a href='/leaderboard'>check the leaderboard</a> | <a href='/stats'>see the statistics</a> | <a href='/about'>about this</a>
-                    </Segment>
+                <Container id='predict' className='voteHome'>
 
                     {(!this.state.userHasAlreadyVoted) ?
                         <Segment loading={this.state.loading} hidden={this.state.mainSegmentHidden}>
-                            <h2>Cast your vote!</h2>
+                            <h2>Register your visions</h2>
 
-                            <p>For every character please choose if and when they die in season 8</p>
+                            <p className='descVoteHome'>For every character, please focus and have a vision for their lives and deaths</p>
 
                             <Card.Group centered>
                                 {this.state.tabCharacters.map((item) => {
@@ -152,29 +168,30 @@ class Home extends React.Component {
                             </Card.Group>
 
                             <Segment hidden={this.state.mainSegmentHidden}>
-                                <Header as='h2'>Ready to make your forecast?</Header>
+                                <h2>Ready to set in stone your visions?</h2>
 
                                 <Message hidden={this.state.tabCharacters.length === Object.keys(this.state.tabUserVotes).length} >
                                     <Message.Header>Warning</Message.Header>
                                     <p>
-                                        You have made a predictions for {Object.keys(this.state.tabUserVotes).length} of the {this.state.tabCharacters.length} characters.
+                                        You have made a prediction for {Object.keys(this.state.tabUserVotes).length} of the {this.state.tabCharacters.length} characters.
                                     </p>
                                     <p><em>It's not mandatory but you should forecast for them all! It's your only chance...</em></p>
                                 </Message>
 
-                                <Grid columns={2} divided>
+                                <Grid columns={(mobileMode) ? 1 : 2} divided={!mobileMode} className='detailsVoteHome'>
                                     <Grid.Column key='1'>
-                                        <p>
-                                            Please input your nickname for the leaderboard (and fame)
-                                        </p>
+                                        <label>Nickname</label>
                                         <Input placeholder='Nickame...' fluid onChange={this.handleInput} name='userNickname' />
+                                        <p>
+                                            Please input your nickname for the leaderboard (and eternal fame)
+                                        </p>
                                     </Grid.Column>
                                     <Grid.Column key='2'>
-                                        <p>
-                                            Not mandatory but you can also add your email address to get news from this
-                                        </p>
+                                        <label>Email</label>
                                         <Input placeholder='Email...' type='email' fluid onChange={this.handleInput} name='userEmail' />
-                                        {/*Todo : si email alors mettre une case à cocher*/}
+                                        <p>
+                                            Not mandatory but you can also add your email address to get news from the game. If you fill it, you accept to be contacted by us (not spammed!)
+                                        </p>
                                     </Grid.Column>
                                 </Grid>
 
@@ -186,25 +203,32 @@ class Home extends React.Component {
                                 </Message>
                             </Segment>
 
-                            <Button fluid size='massive' onClick={this.handleSubmission.bind(this)} >Submit my vote !</Button>
+                            <Button fluid size='massive' onClick={this.handleSubmission.bind(this)} >Submit my prediction !</Button>
 
                         </Segment>
                         :
-                        <Segment>
-                            <Header as='h2'>Congratulations, you have already voted!</Header>
+                        <Segment className='alreadyVotedHome'>
+                            <h2>Congratulations, you are part of the wargs!</h2>
+                            <p>This is your secret token: <strong>{this.state.userToken}</strong>, don't lose it! It will allow you to update your visions later on.</p>
                             <p>
-                                Now you just have to sit tight and watch the rest of the season 8.
-                                <strong>But don't forget to check regularly check out the <a href='/leaderboard'>leaderboard</a> to see where you stand in the battle</strong>
+                                Now you just have to sit tight and watch the rest of the season 8 to see how powerful were your visions.
                             </p>
                             <p>
-                                Here's the link to your forecast : <a href={Meteor.absoluteUrl() + 'vote/' + this.state.userSlug}>{Meteor.absoluteUrl() + 'vote/' + this.state.userSlug}</a>
+                                <strong>But don't forget to check regularly check out the <a href='/leaderboard'>leaderboard</a> to see where you stand in the battle of the wargs</strong>. We will also update this regularly with new features and a better design.
                             </p>
-                            <p>Share it with the world : twitter|facebook</p>
+                            <p>
+                                And also here's the link to your forecast : <a href={shareUrl}>{shareUrl}</a>
+                            </p>
+                            <p>Share it with the world :</p>
+                            <Share shareUrl={shareUrl} titleUrl={titleUrl} />
+
                         </Segment>
                     }
                 </Container>
 
-                <a href='https://hosakka-stud.io' style={{ display: 'block', marginTop: '20px' }} target='_blank'>Made with passion by Hosakkā Studio</a>
+                <div className='footer'>
+                    <a href='https://hosakka-stud.io' style={{ display: 'block', marginTop: '20px' }} target='_blank'>Made with passion by Hosakkā Studio</a>
+                </div>
             </div>
         )
     }
