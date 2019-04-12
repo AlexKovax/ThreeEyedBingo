@@ -181,11 +181,31 @@ $jaune: #f8ea1b;
       color: #a2a0a0;
     }
   }
+
+  .alreadyVotedHome {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: normal;
+    text-align: center;
+
+    color: #484747;
+  }
 }
 
 .footer {
   text-align: center;
   padding: 0 0 50px 0;
+}
+
+ul.shareBar {
+  list-style-type: none;
+  display: block;
+  text-align: center;
+  li {
+    display: inline-block;
+  }
 }
 
 /***********/

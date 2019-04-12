@@ -10,8 +10,6 @@ class HeaderHome extends React.Component {
     }
 
     render() {
-        console.log(jQuery);
-
         return (
             <div>
                 <div className='headerHome'>

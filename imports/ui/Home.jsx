@@ -3,7 +3,7 @@ import { Container, Segment, Card, Image, Icon, Select, Button, Input, Grid, Mes
 import { Session } from 'meteor/session'
 import HeaderHome from '/imports/ui/HeaderHome.jsx'
 import BurgerMenu from '/imports/ui/BurgerMenu.jsx'
-
+import Share from '/imports/ui/Share.jsx'
 
 class Home extends React.Component {
 
@@ -29,7 +29,7 @@ class Home extends React.Component {
         //Checker la session
         //Si déjà une session : on cache le segment et on affiche autre chose
         if (Session.get('wdmSlug') && Session.get('wdmToken')) {
-            this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: Session.get('wdmSlug') })
+            this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: Session.get('wdmSlug'), userNickname: Session.get('wdmNickname') })
         } else {
             //récupération des personnages si jamais pas de session
             Meteor.call('getAllCharacters', (err, res) => {
@@ -89,7 +89,7 @@ class Home extends React.Component {
                 //update UI and state
                 this.setState({ mainSegmentHidden: true, loading: false, userHasAlreadyVoted: true, userSlug: res.slug })
                 //Set session
-                Session.setPersistent({ 'wdmSlug': res.slug, 'wdmToken': res.token });
+                Session.setPersistent({ 'wdmSlug': res.slug, 'wdmToken': res.token, 'wdmNickname': res.nickname });
             }
 
         })
@@ -103,6 +103,13 @@ class Home extends React.Component {
             deathOptions.push({ key: 'dies' + i, text: 'Dies at episode ' + i, value: i });
         }
         deathOptions.push({ key: 'neverdies', text: 'Never dies', value: 0 })
+
+        let shareUrl = '';
+        let titleUrl = '';
+        if (this.state.userHasAlreadyVoted) {
+            shareUrl = Meteor.absoluteUrl() + 'vote/' + this.state.userSlug;
+            titleUrl = 'Three Eyed Bing - discover ' + this.state.userNickname + '\'s prediction for Game of Thrones season 8'
+        }
 
         //display UI
         return (
@@ -188,16 +195,20 @@ class Home extends React.Component {
 
                         </Segment>
                         :
-                        <Segment>
+                        <Segment className='alreadyVotedHome'>
                             <h2>Congratulations, you are part of the wargs!</h2>
                             <p>
                                 Now you just have to sit tight and watch the rest of the season 8 to see how powerful were your visions.
-                                <strong>But don't forget to check regularly check out the <a href='/leaderboard'>leaderboard</a> to see where you stand in the battle of the wargs</strong>
                             </p>
                             <p>
-                                Here's the link to your forecast : <a href={Meteor.absoluteUrl() + 'vote/' + this.state.userSlug}>{Meteor.absoluteUrl() + 'vote/' + this.state.userSlug}</a>
+                                <strong>But don't forget to check regularly check out the <a href='/leaderboard'>leaderboard</a> to see where you stand in the battle of the wargs</strong>. We will also update this regularly with new features and a better design.
                             </p>
-                            <p>Share it with the world : twitter|facebook</p>
+                            <p>
+                                Here's the link to your forecast : <a href={shareUrl}>{shareUrl}</a>
+                            </p>
+                            <p>Share it with the world :</p>
+                            <Share shareUrl={shareUrl} titleUrl={titleUrl} />
+
                         </Segment>
                     }
                 </Container>

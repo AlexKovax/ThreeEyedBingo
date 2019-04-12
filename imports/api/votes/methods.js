@@ -35,7 +35,8 @@ Meteor.methods({
 
         let ret = {};
         ret.slug = userSlug;
-        ret.token = 'xxx'
+        ret.token = 'xxx';
+        ret.nickname = userData.nickname;
 
         //return success
         return ret;
