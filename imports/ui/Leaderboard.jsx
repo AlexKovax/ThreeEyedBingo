@@ -47,7 +47,7 @@ class Leaderboard extends React.Component {
                                         <List.Header as='a' href={Meteor.absoluteUrl() + 'vote/' + vote.slug}>
                                             {vote.nickname} - {vote.score} points
                                         </List.Header>
-                                        <List.Description as='a'>voted at {vote.createdAt.toString()}</List.Description>
+                                        <List.Description as='a'>predicted on {vote.createdAt.toString().slice(0, 20)}</List.Description>
                                     </List.Content>
                                 </List.Item>
                             )

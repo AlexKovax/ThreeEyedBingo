@@ -24,6 +24,7 @@ Meteor.methods({
 
         //inject
         userData.slug = userSlug;
+        userData.score = 0;
         userData.createdAt = new Date();
         userData.lastModifierAt = new Date();
         userData.IP = this.connection.clientAddress;
@@ -59,7 +60,8 @@ Meteor.methods({
         //TODO : important de vérifier que le vote a eu lieu AVANT les episodes concernés
         tabAllVotes.forEach(element => {
             element.score = 0;
-            for (var id in element.tabVotes) {
+            //TMP DEACTIVATED -> à réactiver avec cache
+            /*for (var id in element.tabVotes) {
                 let char = tabCharacters.filter((item) => { return (item.id === id) })[0];//get character info
                 if (element.tabVotes[id] > 0 && char.isDead) {
                     element.score += 1000;
@@ -70,7 +72,7 @@ Meteor.methods({
                 }
 
                 //TODO: compléter après le dernier episode (ou le coder en amont)
-            }
+            }*/
             delete element.tabVotes;//no need to send it to the front
 
         });

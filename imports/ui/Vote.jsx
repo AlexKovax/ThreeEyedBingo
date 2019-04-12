@@ -55,10 +55,15 @@ class Vote extends React.Component {
 
         return (
             <div>
-                <HeaderPage title={this.state.voteInfo.nickname + '\'s forecast'} />
+                <HeaderPage title={this.state.voteInfo.nickname + '\'s vision'} />
 
                 <Segment loading={this.state.loading}>
                     <Header as='h2'>On {this.state.voteInfo.createdAt.toString().slice(0, 20)}, here's what <em>{this.state.voteInfo.nickname}</em> has predicted !</Header>
+
+                    <p style={{ textAlign: 'center' }}>
+                        Share this forecast on :
+                    </p>
+                    <Share shareUrl={shareUrl} titleUrl={titleUrl} />
 
                     <Card.Group>
                         {this.state.tabCharacters.map((item) => {
@@ -78,12 +83,6 @@ class Vote extends React.Component {
                         })
                         }
                     </Card.Group>
-
-                    <p style={{ textAlign: 'center' }}>
-                        Share this forecast on :
-                    </p>
-
-                    <Share shareUrl={shareUrl} titleUrl={titleUrl} />
                 </Segment>
             </div>
         )
