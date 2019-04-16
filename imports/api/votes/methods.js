@@ -18,8 +18,8 @@ Meteor.methods({
             throw new Meteor.Error('incomplete-data', 'Nickname field was empty');
         } else {
             //sanitize
-            userData.nickname = userData.nickname.replace(/<(?:.|\n)*?>/gm, '');
-            userSlug = userData.nickname.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+            userData.nickname = userData.nickname.trim().replace(/<(?:.|\n)*?>/gm, '');
+            userSlug = userData.nickname.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
 
             //check if already exists
             existingSlugs = Votes.find({ slug: userSlug }).count();
