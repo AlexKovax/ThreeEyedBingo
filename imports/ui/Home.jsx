@@ -127,7 +127,7 @@ class Home extends React.Component {
         //display UI
         return (
 
-            <div>
+            <div style={{ position: 'relative' }}>
 
                 <HeaderHome />
 
@@ -232,6 +232,8 @@ class Home extends React.Component {
                 <div className='footer'>
                     <a href='https://hosakka-stud.io' style={{ display: 'block', marginTop: '20px' }} target='_blank'>Made with passion by Hosakkā Studio</a>
                 </div>
+
+                <div className='hodor'></div>
             </div>
         )
     }

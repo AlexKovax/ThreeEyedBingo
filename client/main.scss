@@ -258,6 +258,16 @@ ul.shareBar {
   cursor: pointer;
 }
 
+.hodor {
+  position: absolute;
+  width: 225px;
+  height: 155px;
+  left: 0px;
+  bottom: 0px;
+
+  background: url($host+"/hodor.png") no-repeat center center;
+}
+
 /***********/
 /* burger */
 
@@ -401,6 +411,10 @@ ul.shareBar {
       padding: 0;
       line-height: 50px;
     }
+  }
+
+  .hodor {
+    display: none;
   }
 }
 
