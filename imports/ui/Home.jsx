@@ -131,54 +131,57 @@ class Home extends React.Component {
 
                 <HeaderHome />
 
-                <Container id='predict' className='voteHome'>
+                <div id='predict' className='voteHome'>
 
                     {(!this.state.userHasAlreadyVoted) ?
-                        <Segment loading={this.state.loading} hidden={this.state.mainSegmentHidden}>
-                            <h2>Register your visions</h2>
+                        <div>
+                            <Segment loading={this.state.loading} hidden={this.state.mainSegmentHidden}>
+                                <h2>Register your visions</h2>
 
-                            <p className='descVoteHome'>For every character, please focus and have a vision for their lives and deaths at the end of S8</p>
+                                <p className='descVoteHome'>For every character, please focus and have a vision for their lives and deaths at the end of S8</p>
 
-                            <Card.Group centered>
-                                {this.state.tabCharacters.map((item) => {
-                                    return (
-                                        <Card key={item.id}>
-                                            <Image src={'https://static.whodieswhen.com/' + item.id + '.jpeg'} />
-                                            <Card.Content>
-                                                <Card.Header>{item.name}</Card.Header>
-                                                <Card.Meta>{(!item.isDead) ? 'Still alive !' : 'Dead...'}</Card.Meta>
-                                                <Card.Description>{item.info}</Card.Description>
-                                            </Card.Content>
-                                            <Card.Content extra>
-                                                <a>
-                                                    <Icon name='bullseye' />
-                                                    Your forecast ?
-                                                </a>
-                                                {/*TODO : on mobile use native select*/}
-                                                {(!item.isDead) ?
-                                                    <Select placeholder='Choose from below' name={item.id} options={deathOptions} fluid onChange={this.handleChange} />
-                                                    : <p>Too late...</p>
-                                                }
+                                <Card.Group centered>
+                                    {this.state.tabCharacters.map((item) => {
+                                        return (
+                                            <Card key={item.id}>
+                                                <Image src={'https://static.whodieswhen.com/' + item.id + '.jpeg'} />
+                                                <Card.Content>
+                                                    <Card.Header>{item.name}</Card.Header>
+                                                    <Card.Meta>{(!item.isDead) ? 'Still alive !' : 'Dead...'}</Card.Meta>
+                                                    <Card.Description>{item.info}</Card.Description>
+                                                </Card.Content>
+                                                <Card.Content extra>
+                                                    <a>
+                                                        <Icon name='bullseye' />
+                                                        Your forecast ?
+                                                    </a>
+                                                    {/*TODO : on mobile use native select*/}
+                                                    {(!item.isDead) ?
+                                                        <Select placeholder='Choose from below' name={item.id} options={deathOptions} fluid onChange={this.handleChange} />
+                                                        : <p>Too late...</p>
+                                                    }
 
-                                            </Card.Content>
-                                        </Card>
-                                    )
-                                })
-                                }
-                            </Card.Group>
+                                                </Card.Content>
+                                            </Card>
+                                        )
+                                    })
+                                    }
+                                </Card.Group>
+                            </Segment>
 
-                            <Segment hidden={this.state.mainSegmentHidden}>
-                                <h2>Ready to set in stone your visions?</h2>
+
+                            <h2 className='voteHeader' hidden={this.state.mainSegmentHidden}>Ready to set in stone your visions?</h2>
+
+                            <Container hidden={this.state.mainSegmentHidden}>
 
                                 <Message hidden={this.state.tabCharacters.length === Object.keys(this.state.tabUserVotes).length} >
                                     <Message.Header>Warning</Message.Header>
                                     <p>
                                         You have made a prediction for {Object.keys(this.state.tabUserVotes).length} of the {this.state.tabCharacters.length} characters.
                                     </p>
-                                    <p><em>It's not mandatory but you should forecast for them all! It's your only chance...</em></p>
                                 </Message>
 
-                                <Grid columns={(mobileMode) ? 1 : 2} divided={!mobileMode} className='detailsVoteHome'>
+                                <Grid columns={(mobileMode) ? 1 : 2} className='detailsVoteHome'>
                                     <Grid.Column key='1'>
                                         <label>Nickname</label>
                                         <Input placeholder='Nickame...' fluid onChange={this.handleInput} name='userNickname' />
@@ -201,11 +204,11 @@ class Home extends React.Component {
                                         {this.state.mainError}
                                     </p>
                                 </Message>
-                            </Segment>
 
-                            <Button fluid size='massive' onClick={this.handleSubmission.bind(this)} >Submit my prediction !</Button>
+                                <Button color='black' fluid size='massive' onClick={this.handleSubmission.bind(this)} >Submit my prediction !</Button>
+                            </Container>
 
-                        </Segment>
+                        </div>
                         :
                         <Segment className='alreadyVotedHome'>
                             <h2>Congratulations, you are part of the wargs!</h2>
@@ -224,7 +227,7 @@ class Home extends React.Component {
 
                         </Segment>
                     }
-                </Container>
+                </div>
 
                 <div className='footer'>
                     <a href='https://hosakka-stud.io' style={{ display: 'block', marginTop: '20px' }} target='_blank'>Made with passion by Hosakkā Studio</a>
