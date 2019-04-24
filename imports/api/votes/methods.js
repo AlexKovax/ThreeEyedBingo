@@ -72,8 +72,15 @@ Meteor.methods({
         if (token === '') {
             throw new Meteor.Error('no-token', 'No token given');
         } else {
-            //update vote
-            //garder l'ancien vote dans un tableau
+            //récupération vote
+            let v = Votes.findOne({ token });
+            if (v) {
+                //update vote
+                //garder l'ancien vote dans un tableau
+                Votes.update({ token }, { $set: { tabVotes, lastModifierAt: new Date() }, $push: { oldVotes: v.tabVotes } })
+            } else {
+                throw new Meteor.Error('no-vote', 'Vote not found');
+            }
         }
     },
     //TODO : new methode 'updateScores'

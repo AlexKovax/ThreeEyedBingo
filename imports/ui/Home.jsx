@@ -140,6 +140,8 @@ class Home extends React.Component {
 
                                 <p className='descVoteHome'>For every character, please focus and have a vision for their lives and deaths at the end of S8</p>
 
+                                <p style={{ textAlign: 'center' }}>If you have already registered a vision, click <a href='/cast'>here to update it</a> using your token</p>
+
                                 <Card.Group centered>
                                     {this.state.tabCharacters.map((item) => {
                                         return (
@@ -212,7 +214,7 @@ class Home extends React.Component {
                         :
                         <Segment className='alreadyVotedHome'>
                             <h2>Congratulations, you are part of the wargs!</h2>
-                            <p>This is your secret token: <strong>{this.state.userToken}</strong>, don't lose it! It will allow you to update your visions later on.</p>
+                            <p>This is your secret token: <strong>{this.state.userToken}</strong>, don't lose it! Click <a href='/cast'>here to update your vision</a>.</p>
                             <p>
                                 Now you just have to sit tight and watch the rest of the season 8 to see how powerful were your visions.
                             </p>

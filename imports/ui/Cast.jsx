@@ -29,7 +29,7 @@ class Cast extends React.Component {
                     //get characters
                     Meteor.call('getAllCharacters', (err, res) => {
                         if (res) {
-                            this.setState({ tabCharacters: res, loading: false })
+                            this.setState({ tabCharacters: res, loading: false, token: Session.get('wdmToken') })
                         } else {
                             console.log('Error');
                         }
@@ -74,8 +74,7 @@ class Cast extends React.Component {
 
     handleSubmission() {
         let finalVote = { ...this.state.voteInfo.tabVotes, ...this.state.tabUserVotes };
-        return console.log(finalVote)
-        Meteor.call('updateVote', finalVote, (err, res) => {
+        Meteor.call('updateVote', this.state.token, finalVote, (err, res) => {
             if (err) {
                 console.log(err)
             } else {
@@ -90,7 +89,11 @@ class Cast extends React.Component {
             return (
                 <div>
                     <HeaderPage title='Make your prediction' />
-                    <h2>Well done !</h2>
+                    <Container>
+                        <Segment style={{ marginTop: '20px' }}>
+                            <h2>Well done ! Refresh the page to update again...</h2>
+                        </Segment>
+                    </Container>
                 </div>
             )
         }
@@ -106,7 +109,6 @@ class Cast extends React.Component {
                             <Button onClick={this.handleFind.bind(this)}>Find my visions</Button>
                         </Segment>
                     </Container>
-
                 </div>
             )
         }
