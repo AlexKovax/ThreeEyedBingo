@@ -7,6 +7,7 @@ import Vote from '/imports/ui/Vote.jsx';
 import Leaderboard from '../ui/Leaderboard';
 import Stats from '../ui/Stats.jsx';
 import About from '../ui/About.jsx';
+import Cast from '../ui/Cast.jsx';
 
 
 FlowRouter.route('/', {
@@ -41,5 +42,12 @@ FlowRouter.route('/about', {
     name: 'about',
     action: function () {
         mount(Layout, { content: <About /> });
+    }
+});
+
+FlowRouter.route('/cast/', {
+    name: 'vote',
+    action: function (params) {
+        mount(Layout, { content: <Cast /> });
     }
 });

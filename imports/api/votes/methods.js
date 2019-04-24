@@ -58,6 +58,28 @@ Meteor.methods({
 
         return;
     },
+    getVoteFromToken(token) {
+        let tmpVote = Votes.findOne({ token });
+        if (tmpVote) {
+            delete tmpVote.IP;
+            delete tmpVote.email;
+            return tmpVote;
+        }
+
+        return;
+    },
+    updateVote(token, tabVotes) {
+        if (token === '') {
+            throw new Meteor.Error('no-token', 'No token given');
+        } else {
+            //update vote
+            //garder l'ancien vote dans un tableau
+        }
+    },
+    //TODO : new methode 'updateScores'
+    updateScores() {
+        //calcul du score et injection dans la BD
+    },
     getAllVotes() {
         let tabAllVotes = Votes.find({}, { fields: { 'id': 1, 'nickname': 1, 'slug': 1, 'createdAt': 1, 'tabVotes': 1 } }).fetch()
         let tabCharacters = Characters.find().fetch();
