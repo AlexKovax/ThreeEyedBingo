@@ -91,7 +91,8 @@ class Cast extends React.Component {
                     <HeaderPage title='Make your prediction' />
                     <Container>
                         <Segment style={{ marginTop: '20px' }}>
-                            <h2>Well done ! Refresh the page to update again...</h2>
+                            <h2>Well done !</h2>
+                            <p>Refresh the page to update again or go checkout the <a href='/leaderboard'>leaderboard</a></p>
                         </Segment>
                     </Container>
                 </div>

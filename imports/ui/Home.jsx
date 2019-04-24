@@ -157,7 +157,6 @@ class Home extends React.Component {
                                                         <Icon name='bullseye' />
                                                         Your forecast ?
                                                     </a>
-                                                    {/*TODO : on mobile use native select*/}
                                                     {(!item.isDead) ?
                                                         <Select placeholder='Choose from below' name={item.id} options={deathOptions} fluid onChange={this.handleChange} />
                                                         : <p>Too late...</p>
@@ -219,7 +218,7 @@ class Home extends React.Component {
                                 Now you just have to sit tight and watch the rest of the season 8 to see how powerful were your visions.
                             </p>
                             <p>
-                                <strong>But don't forget to check regularly check out the <a href='/leaderboard'>leaderboard</a> to see where you stand in the battle of the wargs</strong>. We will also update this regularly with new features and a better design.
+                                <strong>And check regularly the <a href='/leaderboard'>leaderboard</a> to see where you stand in the battle of the wargs</strong>.
                             </p>
                             <p>
                                 And also here's the link to your forecast : <a href={shareUrl}>{shareUrl}</a>
