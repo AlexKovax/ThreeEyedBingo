@@ -86,34 +86,37 @@ Meteor.methods({
     //TODO : new methode 'updateScores'
     updateScores() {
         //calcul du score et injection dans la BD
-        let tabAllVotes = Votes.find({}, { fields: { 'id': 1, 'nickname': 1, 'slug': 1, 'createdAt': 1, 'tabVotes': 1 } }).fetch()
+        let tabAllVotes = Votes.find().fetch()
         let tabCharacters = Characters.find().fetch();
 
-        //Todo : calculer les points
-        //TODO : important de vérifier que le vote a eu lieu AVANT les episodes concernés
+        //Calcul des points
         tabAllVotes.forEach(element => {
-            element.score = 0;
-            //TMP DEACTIVATED -> à réactiver avec cache
-            /*for (var id in element.tabVotes) {
+            score = 0;
+            for (var id in element.tabVotes) {
                 let char = tabCharacters.filter((item) => { return (item.id === id) })[0];//get character info
+
+                //checker time of death VS time of vote
+                if (typeof element.lastModifierAt !== 'undefined' && typeof element.lastModifierAt !== null && char.isDead && element.lastModifierAt.getTime() > char.dateOfDeath.getTime()) {
+                    continue;
+                }
+
                 if (element.tabVotes[id] > 0 && char.isDead) {
-                    element.score += 1000;
+                    score += 1000;
                 }
 
                 if (element.tabVotes[id] > 0 && char.deadAtEpisode === element.tabVotes[id]) {
-                    element.score += 4000;
+                    score += 4000;
                 }
 
                 //TODO: compléter après le dernier episode (ou le coder en amont)
-            }*/
-            delete element.tabVotes;//no need to send it to the front
+            }
+            Votes.update({ _id: element._id }, { $set: { score: score } })
 
         });
 
-        //Todo : mettre en cache la réponse pour 5min (augmenter si besoin)
     },
     getAllVotes() {
-        let tabAllVotes = Votes.find({}, { fields: { 'id': 1, 'nickname': 1, 'slug': 1, 'createdAt': 1, 'score': 1, 'tabVotes': 1 }, sort: { 'score': -1 } }).fetch()
+        let tabAllVotes = Votes.find({}, { fields: { 'id': 1, 'nickname': 1, 'slug': 1, 'createdAt': 1, 'lastModifierAt': 1, 'score': 1, 'tabVotes': 1 }, sort: { 'score': -1 } }).fetch()
         return tabAllVotes;
     }
 })

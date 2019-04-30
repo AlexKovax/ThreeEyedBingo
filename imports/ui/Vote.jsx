@@ -58,7 +58,7 @@ class Vote extends React.Component {
                 <HeaderPage title={this.state.voteInfo.nickname + '\'s vision'} />
 
                 <Segment loading={this.state.loading}>
-                    <Header as='h2'>On {this.state.voteInfo.createdAt.toString().slice(0, 20)}, here's what <em>{this.state.voteInfo.nickname}</em> has predicted !</Header>
+                    <Header as='h2'>On {this.state.voteInfo.createdAt.toString().slice(0, 21)}, here's what <em>{this.state.voteInfo.nickname}</em> has predicted !</Header>
 
                     <p style={{ textAlign: 'center' }}>
                         Share this forecast on :
