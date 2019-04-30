@@ -59,6 +59,7 @@ class Vote extends React.Component {
 
                 <Segment loading={this.state.loading}>
                     <Header as='h2'>On {this.state.voteInfo.createdAt.toString().slice(0, 21)}, here's what <em>{this.state.voteInfo.nickname}</em> has predicted !</Header>
+                    {(typeof this.state.voteInfo.lastModifierAt === 'object') ? <h3>Last update on {this.state.voteInfo.lastModifierAt.toString().slice(0, 21)}</h3> : ''}
 
                     <p style={{ textAlign: 'center' }}>
                         Share this forecast on :
@@ -77,6 +78,10 @@ class Vote extends React.Component {
                                     <Card.Content>
                                         <Card.Header>{item.name}</Card.Header>
                                         <Card.Meta>{(forecast === 0) ? 'will live !' : 'will die at episode ' + forecast}</Card.Meta>
+                                    </Card.Content>
+                                    <Card.Content extra>
+                                        {(item.isDead && forecast > 0) ? <div>Death guessed => <strong>+1000</strong> pts</div> : ''}
+                                        {(item.isDead && forecast === item.deadAtEpisode) ? <div>and exact episode => <strong>+4000</strong> pts</div> : ''}
                                     </Card.Content>
                                 </Card>
                             )
