@@ -50,7 +50,6 @@ class Leaderboard extends React.Component {
                             <Card.Group>
 
                                 {this.state.tabVotes.map((vote, i) => {
-                                    console.log(typeof vote.lastModifierAt)
                                     return (
                                         <Card key={i} fluid>
                                             <Card.Content>
