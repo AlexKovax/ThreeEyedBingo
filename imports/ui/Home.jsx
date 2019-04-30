@@ -153,15 +153,14 @@ class Home extends React.Component {
                                                     <Card.Description>{item.info}</Card.Description>
                                                 </Card.Content>
                                                 <Card.Content extra>
-                                                    <a>
-                                                        <Icon name='bullseye' />
-                                                        Your forecast ?
-                                                    </a>
                                                     {(!item.isDead) ?
-                                                        <Select placeholder='Choose from below' name={item.id} options={deathOptions} fluid onChange={this.handleChange} />
-                                                        : <p>Too late...</p>
+                                                        <div>
+                                                            <Icon name='bullseye' />
+                                                            Your forecast ?
+                                                            <Select placeholder='Choose from below' name={item.id} options={deathOptions} fluid onChange={this.handleChange} />
+                                                        </div>
+                                                        : <p>Too late... Died at episode {item.deadAtEpisode}</p>
                                                     }
-
                                                 </Card.Content>
                                             </Card>
                                         )
