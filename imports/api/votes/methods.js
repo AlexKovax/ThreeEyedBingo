@@ -86,8 +86,6 @@ Meteor.methods({
     //TODO : new methode 'updateScores'
     updateScores() {
         //calcul du score et injection dans la BD
-    },
-    getAllVotes() {
         let tabAllVotes = Votes.find({}, { fields: { 'id': 1, 'nickname': 1, 'slug': 1, 'createdAt': 1, 'tabVotes': 1 } }).fetch()
         let tabCharacters = Characters.find().fetch();
 
@@ -113,7 +111,9 @@ Meteor.methods({
         });
 
         //Todo : mettre en cache la réponse pour 5min (augmenter si besoin)
-
+    },
+    getAllVotes() {
+        let tabAllVotes = Votes.find({}, { fields: { 'id': 1, 'nickname': 1, 'slug': 1, 'createdAt': 1, 'score': 1, 'tabVotes': 1 }, sort: { 'score': -1 } }).fetch()
         return tabAllVotes;
     }
 })

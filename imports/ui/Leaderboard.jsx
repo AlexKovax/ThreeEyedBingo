@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Header, Segment } from 'semantic-ui-react';
+import { List, Container, Grid, Card, Header, Segment } from 'semantic-ui-react';
 import HeaderPage from '/imports/ui/HeaderPage.jsx'
 
 class Leaderboard extends React.Component {
@@ -29,34 +29,42 @@ class Leaderboard extends React.Component {
     render() {
 
         return (
-            <div>
+            <div className='leaderboard'>
                 <HeaderPage title='Leaderboard' />
-                <Segment loading={this.state.loading}>
+                <Container loading={this.state.loading} style={{ marginTop: '20px' }}>
+                    <Grid container doubling columns={2}>
+                        <Grid.Column>
+                            <Card fluid>
+                                <Card.Content header='How does this work?' />
+                                <Card.Content extra>
+                                    All the forecasts are processed after every episode. You get points for the correct deaths predicted and at the end of episode 6 you'll get the points for the characters still alive.
+                                </Card.Content>
+                            </Card>
+                        </Grid.Column>
 
-                    <p>How does this work?</p>
+                        <Grid.Column>
+                            <Card.Group>
 
-                    <p>All the forecasts are processed after every episode. You get points for the correct deaths predicted and at the end of episode 6 you'll get the points for the characters still alive.</p>
+                                {this.state.tabVotes.map((vote, i) => {
+                                    return (
+                                        <Card key={i} fluid>
+                                            <Card.Content>
+                                                <img src='https://static.three-eyed-bingo.com/jonico.png' style={{ width: '50px', background: 'white', marginLeft: '-65px', marginTop: '-50px', position: 'absolute', border: 'solid 1px black', borderRadius: '50px' }} />
+                                                <Card.Header>{i + 1}. {vote.nickname} - {vote.score} points</Card.Header>
+                                                <Card.Meta>predicted on {vote.createdAt.toString().slice(0, 19)}</Card.Meta>
+                                                <Card.Description>
+                                                    <a href={Meteor.absoluteUrl() + 'vote/' + vote.slug}>See forecast</a>
+                                                </Card.Description>
+                                            </Card.Content>
+                                        </Card>
+                                    )
+                                }
+                                )}
 
-                    <List divided relaxed>
-
-                        {this.state.tabVotes.map((vote, i) => {
-                            return (
-                                <List.Item key={i}>
-                                    <List.Icon name='user' size='large' verticalAlign='middle' />
-                                    <List.Content>
-                                        <List.Header as='a' href={Meteor.absoluteUrl() + 'vote/' + vote.slug}>
-                                            {vote.nickname} - {vote.score} points
-                                        </List.Header>
-                                        <List.Description as='a'>predicted on {vote.createdAt.toString().slice(0, 20)}</List.Description>
-                                    </List.Content>
-                                </List.Item>
-                            )
-                        }
-                        )}
-
-                    </List>
-
-                </Segment>
+                            </Card.Group>
+                        </Grid.Column>
+                    </Grid>
+                </Container>
             </div>
         )
     }

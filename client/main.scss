@@ -356,6 +356,11 @@ ul.shareBar {
   background: rgba(0, 0, 0, 0.7);
 }
 
+.leaderboard .ui.card > .content,
+.leaderboard .ui.cards > .card > .content {
+  padding: 2em 3em;
+}
+
 /*****************************/
 
 /* Media queries */
