@@ -74,6 +74,7 @@ class Cast extends React.Component {
 
     handleSubmission() {
         let finalVote = { ...this.state.voteInfo.tabVotes, ...this.state.tabUserVotes };
+        return console.log(finalVote)
         Meteor.call('updateVote', this.state.token, finalVote, (err, res) => {
             if (err) {
                 console.log(err)
@@ -84,6 +85,20 @@ class Cast extends React.Component {
     }
 
     render() {
+
+        return (
+            <div>
+                <HeaderPage title='Make your prediction' />
+                <Container>
+                    <Segment style={{ marginTop: '20px' }}>
+                        <h2>Too late...</h2>
+                        <p>Sorry updating isn't possible anymore... You can checkout the <a href='/leaderboard'>leaderboard</a></p>
+                    </Segment>
+                </Container>
+
+            </div>
+        )
+
 
         if (this.state.voteDone) {
             return (
@@ -142,21 +157,19 @@ class Cast extends React.Component {
                                             <Card.Description>{item.info}</Card.Description>
                                         </Card.Content>
                                         <Card.Content extra>
-                                            {(!item.isDead) ?
-                                                <div>
-                                                    <Icon name='bullseye' />
-                                                    Your forecast ?
-                                                    <Select
-                                                        placeholder='Choose from below'
-                                                        name={item.id}
-                                                        options={deathOptions}
-                                                        fluid
-                                                        onChange={this.handleChange}
-                                                        defaultValue={this.state.voteInfo.tabVotes[item.id]}
-                                                    />
-                                                </div>
-                                                : <p>Too late... Died at episode {item.deadAtEpisode}</p>
-                                            }
+                                            <div>
+                                                <Icon name='bullseye' />
+                                                Your forecast ?
+                                                <Select
+                                                    placeholder='Choose from below'
+                                                    name={item.id}
+                                                    options={deathOptions}
+                                                    fluid
+                                                    onChange={this.handleChange}
+                                                    defaultValue={this.state.voteInfo.tabVotes[item.id]}
+                                                    disabled={item.isDead}
+                                                />
+                                            </div>
 
                                         </Card.Content>
                                     </Card>
