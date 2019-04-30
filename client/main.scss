@@ -361,6 +361,18 @@ ul.shareBar {
   padding: 2em 3em;
 }
 
+.ui.card:first-child .content img {
+  background: gold !important;
+}
+
+.ui.card:nth-child(2) .content img {
+  background: silver !important;
+}
+
+.ui.card:nth-child(3) .content img {
+  background: #cd7f32 !important;
+}
+
 /*****************************/
 
 /* Media queries */
