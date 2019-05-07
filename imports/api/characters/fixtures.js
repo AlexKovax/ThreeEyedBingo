@@ -33,7 +33,7 @@ let tabCharacters = [
     { id: 'gendry', name: 'Gendry', info: '', deadAtEpisode: 0, isDead: false, dateOfDeath: null },
     { id: 'yara', name: 'Yara Greyjoy', info: '', deadAtEpisode: 0, isDead: false, dateOfDeath: null },
     { id: 'greyworm', name: 'Grey Worm', info: '', deadAtEpisode: 0, isDead: false, dateOfDeath: null },
-    { id: 'missandei', name: 'Missandei', info: '', deadAtEpisode: 0, isDead: false, dateOfDeath: null },
+    { id: 'missandei', name: 'Missandei', info: '', deadAtEpisode: 4, isDead: true, dateOfDeath: new Date(('2019-05-06T03:00:00')) },
     { id: 'daario', name: 'Daario Naharis', info: '', deadAtEpisode: 0, isDead: false, dateOfDeath: null },
     { id: 'jaqen', name: 'Jaqen H’ghar', info: '', deadAtEpisode: 0, isDead: false, dateOfDeath: null },
     { id: 'beric', name: 'Beric Dondarrion', info: '', deadAtEpisode: 3, isDead: true, dateOfDeath: new Date(('2019-04-29T03:00:00')) },
@@ -47,7 +47,7 @@ let tabCharacters = [
     { id: 'hotpie', name: 'Hot Pie', info: '', deadAtEpisode: 0, isDead: false, dateOfDeath: null },
     { id: 'eddison', name: 'Eddison Tollett', info: '', deadAtEpisode: 3, isDead: true, dateOfDeath: new Date(('2019-04-29T03:00:00')) },
     { id: 'nightking', name: 'Night King', info: '', deadAtEpisode: 3, isDead: true, dateOfDeath: new Date(('2019-04-29T03:00:00')) },
-    { id: 'rhaegal', name: 'Raeghal', info: '', deadAtEpisode: 3, isDead: true, dateOfDeath: new Date(('2019-04-29T03:00:00')) },
+    { id: 'rhaegal', name: 'Raeghal', info: '', deadAtEpisode: 4, isDead: true, dateOfDeath: new Date(('2019-05-06T03:00:00')) },
     { id: 'drogon', name: 'Drogon', info: '', deadAtEpisode: 0, isDead: false, dateOfDeath: null }
 ]
 
