@@ -109,6 +109,9 @@ Meteor.methods({
                 }
 
                 //TODO: compléter après le dernier episode (ou le coder en amont)
+                if (element.tabVotes[id] === 0 && char.deadAtEpisode === 0) {
+                    score += 3000;
+                }
             }
             Votes.update({ _id: element._id }, { $set: { score: score } })
 

@@ -11,7 +11,7 @@ Characters.remove({});
 //Init tab
 let tabCharacters = [
     { id: 'jonsnow', name: 'Jon Snow', info: '', deadAtEpisode: 0, isDead: false, dateOfDeath: null },
-    { id: 'dany', name: 'Daenerys Targaryen', info: '', deadAtEpisode: 0, isDead: false, dateOfDeath: null },
+    { id: 'dany', name: 'Daenerys Targaryen', info: '', deadAtEpisode: 6, isDead: true, dateOfDeath: new Date(('2019-05-20T03:00:00')) },
     { id: 'cersei', name: 'Cersei Lannister', deadAtEpisode: 5, isDead: true, dateOfDeath: new Date(('2019-05-13T03:00:00')) },
     { id: 'tyrion', name: 'Tyrion Lannister', info: '', deadAtEpisode: 0, isDead: false, dateOfDeath: null },
     { id: 'sansa', name: 'Sansa Stark', info: '', deadAtEpisode: 0, isDead: false, dateOfDeath: null },

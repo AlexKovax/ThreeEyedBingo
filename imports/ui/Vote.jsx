@@ -82,6 +82,7 @@ class Vote extends React.Component {
                                     <Card.Content extra>
                                         {(item.isDead && forecast > 0) ? <div>Death guessed => <strong>+1000</strong> pts</div> : ''}
                                         {(item.isDead && forecast === item.deadAtEpisode) ? <div>and exact episode => <strong>+4000</strong> pts</div> : ''}
+                                        {(!item.isDead && forecast === 0) ? <div>Survival guessed => <strong>+3000</strong> pts</div> : ''}
                                     </Card.Content>
                                 </Card>
                             )
