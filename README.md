@@ -21,3 +21,7 @@ Honestly it's all fairly basic stuff, just a simple backend with two collections
  ## Screenshots
 
  Here's what the main page looked like and also the leaderboard for history !
+ 
+ ![Homepage](https://static.three-eyed-bingo.com/threeeyedhome.png)
+ 
+ ![Leaderboard](https://static.three-eyed-bingo.com/threeeyedleaderboard.png)
