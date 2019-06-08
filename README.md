@@ -22,6 +22,5 @@ There's some empty files and unfinished business like the "Statistics" page that
 
 Here's what the main page looked like and also the leaderboard for history !
  
-![Leaderboard](https://static.three-eyed-bingo.com/threeeyedleaderboard.png "leaderboard")
-
-![Homepage](https://static.three-eyed-bingo.com/threeeyedhome.png "home")
+![threeeyedhome](https://user-images.githubusercontent.com/1872273/59150249-b3b3c380-8a20-11e9-9202-b42595243fb9.png)
+![threeyedleaderboard](https://user-images.githubusercontent.com/1872273/59150246-aac2f200-8a20-11e9-89c2-7fc5ef4ba783.png)
