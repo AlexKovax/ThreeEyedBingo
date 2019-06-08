@@ -14,14 +14,14 @@ It's a meteor project so clone the repository and do the usual :
 Honestly it's all fairly basic stuff, just a simple backend with two collections
  : one to store the characters and one to store the players' votes. The characters are initialized via fixtures.
 
- The front is ReactJS app with only a few components. I coded all this very quickly so it's not very well organized.
+The front is ReactJS app with only a few components. I coded all this very quickly so it's not very well organized.
 
- There's some empty files and unfinished business like the "Statistics" page that I wanted to do but didn't have a chance to finish.
+There's some empty files and unfinished business like the "Statistics" page that I wanted to do but didn't have a chance to finish.
 
- ## Screenshots
+## Screenshots
 
- Here's what the main page looked like and also the leaderboard for history !
+Here's what the main page looked like and also the leaderboard for history !
  
- ![Homepage](https://static.three-eyed-bingo.com/threeeyedhome.png)
- 
- ![Leaderboard](https://static.three-eyed-bingo.com/threeeyedleaderboard.png)
+![Leaderboard](https://static.three-eyed-bingo.com/threeeyedleaderboard.png "leaderboard")
+
+![Homepage](https://static.three-eyed-bingo.com/threeeyedhome.png "home")
